@@ -182,7 +182,8 @@ xrt-examine
 
 ## Build an IRON Design for AIEs in the AMD Ryzen™ AI NPU
 
-For your design of interest, for instance from [programming_examples](../programming_examples/), 2 steps are needed: (i) build the AIE design and then (ii) build the host code.
+For your design of interest, for instance from [Multiplication_program](../Multiplication_program/), 2 steps are needed: (i) build the AIE design and then (ii) build the host code. 
+**Note** navigate to the folder containing the design files(.py and makefiles) before running the following commands: 
 
 ### Build Device AIE Part
 
@@ -195,6 +196,7 @@ For your design of interest, for instance from [programming_examples](../program
     ```bash
     make run
     ```
+
 
 ## Learn more about NPU programming with IRON
 
