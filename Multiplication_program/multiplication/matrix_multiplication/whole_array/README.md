@@ -215,7 +215,7 @@ This benchmarking approach is useful for isolating whether performance varies wi
 | `-k`            | 64      | Columns per core sub-tile of `A` / rows of `B`            |
 | `-n`            | 32      | Columns per core sub-tile of `B` / `C`                    |
 | `--n-aie-cols`  | 2       | Number of AIE columns to activate                         |
-| `--col_offset`  | 0       | Index of the first AIE column to use                      |
+| `--col_offset`  | 0 or 2  | Index of the first AIE column to use (0 for A, 2 for B)   |
 | `--dtype_in`    | `i16`   | Input data type (`i8`, `i16`, `bf16`)                     |
 | `--dtype_out`   | `i16`   | Output data type (`i16`, `i32`, `f32`, `bf16`)            |
 
