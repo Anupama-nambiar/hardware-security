@@ -1,4 +1,4 @@
-[![Build and Test across Python versions](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestPythons.yml/badge.svg)](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestPythons.yml) [![Build and Test with AIE tools on Ryzen™ AI](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestRyzenAI.yml/badge.svg)](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestRyzenAI.yml) [![Compile across platforms](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestMulti.yml/badge.svg)](https://github.com/Xilinx/mlir-aie/actions/workflows/buildAndTestMulti.yml)
+
 
 # IRON API and MLIR-based AI Engine Toolchain
 
@@ -18,15 +18,6 @@ _Note: Badge values are cached for up to 24 hours (`cacheSeconds=86400`) to redu
 
 This project emphasizes fast, open-source toolchains for NPU devices including LLVM-based code generation. IRON contains a close-to-metal toolkit that empowers performance engineers to create fast and efficient designs for Ryzen™ AI NPUs powered by AI Engines. It provides Python APIs that enable developers to harness the unique architectural capabilities of AMD’s NPUs. However, this project is not intended to represent an end-to-end compilation flow for all application designs---it is designed to complement, not replace, mainstream NPU tooling for inference like the [AMD Ryzen™ AI Software Platform](https://github.com/amd/RyzenAI-SW/). Targeting researchers and enthusiasts, IRON is designed to unlock the full potential of NPUs for a wide range of workloads, from machine learning to digital signal processing and beyond. This repository includes programming guides and examples demonstrating the APIs. Additionally, the [Peano](https://github.com/Xilinx/llvm-aie) component extends the LLVM framework by adding support for the AI Engine processor as a target architecture, enabling integration with popular compiler frontends such as `clang`. Developers can leverage the [AIE API header library](https://xilinx.github.io/aie_api/topics.html) to implement efficient vectorized AIE core code in C++ that can be compiled by Peano.
 
-This repository contains an [MLIR-based](https://mlir.llvm.org/) toolchain for AI Engine-enabled devices, such as [AMD Ryzen™ AI](https://www.amd.com/en/products/processors/consumer/ryzen-ai.html) and [Versal™](https://www.xilinx.com/products/technology/ai-engine.html).  This repository can be used to generate low-level configurations for the AI Engine portion of these devices. AI Engines are organized as a spatial array of tiles, where each tile contains AI Engine cores and/or memories. The spatial array is connected by stream switches that can be configured to route data between AI Engine tiles scheduled by their programmable Data Movement Accelerators (DMAs). This repository contains MLIR representations, with multiple levels of abstraction, to target AI Engine devices. This enables compilers and developers to program AI Engine cores, as well as describe data movements and array connectivity.
-
-The IRON Python API for Ryzen™ AI NPUs is described in the following paper:
-
-> E. Hunhoff, J. Melber, K. Denolf, A. Bisca, S. Bayliss, S. Neuendorffer, J. Fifield, J. Lo, P. Vasireddy, P. James-Roxby, E. Keller. "[Efficiency, Expressivity, and Extensibility in a Close-to-Metal NPU Programming Interface](https://arxiv.org/abs/2504.18430)". In 33rd IEEE International Symposium On Field-Programmable Custom Computing Machines, May 2025.
-
-<p align="left">
-  <img src="docs/assets/images/iron_linux_stack.svg" alt="Iron Linux Software Stack" width="50%">
-</p>
 
 # Getting Started for AMD Ryzen™ AI on Linux
 
@@ -62,6 +53,8 @@ Turn off SecureBoot (Allows for unsigned drivers to be installed):
 > ```
 >
 > If your kernel is older than 6.17, upgrade it using your distribution's kernel update mechanism or the kernel upgrade steps described in the [Initial Setup](#initial-setup) section above.
+>
+#### Clone this repository on local machine
 
 Install the XDNA driver and XRT from the AMD PPA:
 
@@ -89,14 +82,25 @@ Verify the NPU device is present:
 ```bash
 xrt-smi examine
 ```
+If xrt-smi command is not found :
+```bash
+ command not found 
+```
+Fix the path to be able to use this command : 
+```bash
+export PATH=/opt/xilinx/xrt/bin:$PATH
+xrt-examine 
+```
 
-> At the bottom of the output you should see:
+
+> Once the xrt-smi command is found the bottom of the output you should see:
 >  ```
 >  Devices present
 >  BDF             :  Name
 > ------------------------------------
 >  [0000:66:00.1]  :  NPU Strix
 >  ```
+>  Or the name of the NPU in your device. 
 
 ### Install IRON and MLIR-AIE Prerequisites
 
@@ -115,22 +119,14 @@ xrt-smi examine
     > ```bash
     > python3 -m pip install --upgrade cmake
     > ```
-
-1. (Optional) Install opencv which is needed for vision programming examples:
-
-   ```bash
-   sudo apt install libopencv-dev python3-opencv
-   ```
+    > If it is already installed but not being used yet, again update the path
+    ```bash
+      export PATH=/opt/cmake-3.30/bin:$PATH 
+    ```
 
 ## Install IRON for AMD Ryzen™ AI AIE Application Development
 
-1. Clone [the mlir-aie repository](https://github.com/Xilinx/mlir-aie.git):
-   ```bash
-   git clone https://github.com/Xilinx/mlir-aie.git
-   cd mlir-aie
-   ```
-
-1. Setup a virtual environment:
+1. Navigate to the mlir-aie folder and setup a virtual environment:
    ```bash
    python3 -m venv ironenv
    source ironenv/bin/activate
@@ -161,14 +157,6 @@ xrt-smi examine
       git checkout $latest_tag_with_v
       ```
 
-   1. **Any Release:** You can install a specific version of `mlir-aie` from the release wheels. To see available versions, check out the [release page](https://github.com/Xilinx/mlir-aie/releases).
-
-      ```bash
-      # Install IRON library and mlir-aie from a specific release,
-      # e.g., <verison> in the following command could be replaced with v1.1.3
-      python3 -m pip install mlir_aie -f https://github.com/Xilinx/mlir-aie/releases/expanded_assets/<version>
-      git checkout <version>
-      ```
 
 1. Install the Peano compiler (the `llvm-aie` wheels) and dependencies:
    ```bash
@@ -195,30 +183,6 @@ xrt-smi examine
    source utils/env_setup.sh
    ```
 
-1. (Optional) Install ML Python packages for ml programming examples:
-   ```bash
-   # Install Torch for ML examples
-   python3 -m pip install -r python/requirements_ml.txt
-   ```
-
-1. (Optional) Install Jupyter Notebook Python packages:
-   ```bash
-   # Install Jupyter Notebook
-   python3 -m pip install -r python/requirements_notebook.txt
-
-   # This creates an ipykernel (for use in notebooks) using the ironenv venv
-   python3 -m ipykernel install --user --name ironenv
-
-   # Only for Release v1.0 and non wheel-based installs:
-   # The install generally captures in the $PYTHONPATH by the `env_setup.sh` script.
-   # However, jupyter notebooks don't always get access to the PYTHONPATH (e.g., if they are run with
-   # vscode) so we save the ${MLIR_AIE_INSTALL_DIR}/python in a .pth file in the site packages dir of the
-   # ironenv venv; this allows the iron ipykernel to find the install dir regardless of if PYTHONPATH is
-   # available or not.
-   MLIR_AIE_INSTALL=`$(pip show mlir_aie | grep ^Location: | awk '{print $2}')/mlir_aie` \
-   venv_site_packages=`python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])'` \
-   echo ${MLIR_AIE_INSTALL}/python > $venv_site_packages/mlir-aie.pth
-   ```
 
 ## Build an IRON Design for AIEs in the AMD Ryzen™ AI NPU
 
