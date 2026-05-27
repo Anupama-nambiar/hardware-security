@@ -8,6 +8,12 @@
 //
 //===----------------------------------------------------------------------===//-->
 
+**NOTE** 
+This design is derived from the [Matrix Multiplication - Whole Array](https://github.com/Xilinx/mlir-aie/tree/main/programming_examples/basic/matrix_multiplication/whole_array) example in the [mlir-aie](https://github.com/Xilinx/mlir-aie) repository, 
+© Advanced Micro Devices, Inc., licensed under Apache 2.0 with LLVM Exceptions.
+
+
+
 # Matrix Multiplication - Controlled Single Program Execution
 
 This directory contains a matrix multiplication design for a Ryzen AI device with an NPU (Neural Processing Unit). Unlike the whole-array design, this variant allows precise control over **which columns of AI Engines (AIEs) are used** via a configurable column offset and column count. This makes it suitable for partitioned workloads, resource isolation experiments, and performance benchmarking across different AIE column configurations.
