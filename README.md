@@ -55,7 +55,7 @@ Turn off SecureBoot (Allows for unsigned drivers to be installed):
 > If your kernel is older than 6.17, upgrade it using your distribution's kernel update mechanism or the kernel upgrade steps described in the [Initial Setup](#initial-setup) section above.
 >
 #### Clone this repository on local machine
-####Navigate to the mlir-aie folder and setup a virtual environment:
+#### Navigate to the mlir-aie folder and setup a virtual environment:
    ```bash
    python3 -m venv ironenv
    source ironenv/bin/activate
