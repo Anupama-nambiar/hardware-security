@@ -14,14 +14,14 @@ This directory contains a design that runs **two independent matrix multiplicati
 
 ```
 NPU 4×4 AI Engine Array
-┌────────────────────────────┐
+┌────────────────────────────-----------┐
 │  Col 0     Col 1  │  Col 2     Col 3  │
 │  ─────────────────┼───────────────────│
-│       Program 0   │      Program 1    │
+│    Program 0      │     Program 1     │
 │   (shim 0–1)      │   (shim 2–3)      │
 │   (mem  0–1)      │   (mem  2–3)      │
-│   (cores 0–1 ×4)  │   (cores 2–3 ×4) │
-└────────────────────────────┘
+│   (cores 0–1 ×4)  │   (cores 2–3 ×4)  │
+└──────────────────────────-----------──┘
 ```
 
 Both programs operate on **identically sized** matrices, configured via the same `-M`, `-K`, `-N`, `-m`, `-k`, `-n` Makefile arguments. The two programs' input and output data are packed into **combined host buffers** (`A_combined`, `B_combined`, `C_combined`) to avoid a hardware limitation where the compiler can merge same-typed, same-sized buffer objects, causing DMA deadlocks.
