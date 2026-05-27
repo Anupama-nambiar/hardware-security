@@ -36,9 +36,10 @@ You will need C++23 for `bfloat16_t` support in `test.cpp`, available in `g++-13
 
 ```shell
 make
-make whole_array.exe
+make whole_array_parallel.exe
 make run
 ```
+
 
 ---
 
