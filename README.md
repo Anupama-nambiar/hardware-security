@@ -55,6 +55,12 @@ Turn off SecureBoot (Allows for unsigned drivers to be installed):
 > If your kernel is older than 6.17, upgrade it using your distribution's kernel update mechanism or the kernel upgrade steps described in the [Initial Setup](#initial-setup) section above.
 >
 #### Clone this repository on local machine
+####Navigate to the mlir-aie folder and setup a virtual environment:
+   ```bash
+   python3 -m venv ironenv
+   source ironenv/bin/activate
+   python3 -m pip install --upgrade pip
+   ```
 
 Install the XDNA driver and XRT from the AMD PPA:
 
@@ -126,9 +132,8 @@ xrt-examine
 
 ## Install IRON for AMD Ryzen™ AI AIE Application Development
 
-1. Navigate to the mlir-aie folder and setup a virtual environment:
+1. Navigate to the mlir-aie folder and start the already initiated virtual environment if not in it:
    ```bash
-   python3 -m venv ironenv
    source ironenv/bin/activate
    python3 -m pip install --upgrade pip
    ```
