@@ -1,2 +1,2 @@
 
-Navigate to Multiplication to run the matrix multiplication programs
+Navigate to `multiplication` folder to run the matrix multiplication programs
