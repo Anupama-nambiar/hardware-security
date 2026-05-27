@@ -34,6 +34,7 @@ If starting from `Ubuntu 24.04` you may need to update the Linux kernel to 6.11+
   sudo apt install --install-recommends linux-generic-hwe-24.04
   sudo reboot
   ```
+If using another version of Ubuntu confirm compatibility on AMD's official website : [Compatibility Check](https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html#os-kernel-versions)
 
 ## Prerequisites
 
