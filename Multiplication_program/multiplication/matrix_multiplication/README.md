@@ -14,11 +14,11 @@ Subdirectories in this directory contain example designs that implement matrix m
 
 > These designs all follow largely the same structure and rely on the same basic concepts. The [whole-array design](whole_array/README.md) contains a representative in-depth explanation of this structure and these concepts. In the explanations for the other designs, we rely on the whole-array design as a base and only highlight the differences.
 
-* [`single_core`](single_core) - This design performs matrix-matrix multiplication on a single AI Engine core. 
-* [`whole_array`](whole_array) - This design evolves `single_core`, by splitting the computation and parallelizing it. It utilizes all available AI Engine cores simultaneously.
-* [`matrix_vector`](matrix_vector) - This design is a specialization to the matrix-vector-multiplication case, which poses unique challenges due to lower computation density. *Work in progress.*
+* [`whole_array`](https://github.com/Anupama-nambiar/hardware-security/tree/main/Multiplication_program/multiplication/matrix_multiplication/whole_array) - This design evolves `single_core`, by splitting the computation and parallelizing it. It utilizes all available AI Engine cores simultaneously. This code is similar to the one seen on the original MLIR-AIE folder but has additions on the test files to be able to measure the wall-clock of the programs. We use `test.cpp` to test this file. 
+  
+* [`Parallel_matrix_mult`](https://github.com/Anupama-nambiar/hardware-security/tree/main/Multiplication_program/multiplication/matrix_multiplication/parallel_matrix_mult) - This design allows for 2 matrix multiplication programs to be run on 2 columns of the NPU each. They run concurrently. Moreove the test files have the ability to record wall-clock times for both programs to finish. We use `parallel_test.cpp` to test this file. 
 
-## Note on Numerical Tolerances
+## Note on Numerical Tolerances (similar to the tolerances on the original mlir-aie programming examples) 
 
 This directory contains verification code that ensures the designs in the subdirectories produce the correct output.
 
