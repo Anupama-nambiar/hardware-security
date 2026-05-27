@@ -94,7 +94,7 @@ This design introduces two key parameters:
 
 These parameters are passed from the Makefile and propagate through the design, affecting all tile declarations, ObjectFIFO endpoints, and DMA buffer descriptor assignments.
 
-The NPU hardware is structured as a 6-row × 4-column array (or 6×8 for NPU2):
+The NPU hardware is structured as a 6-row × 5-column array (or 6×8 for NPU2):
 
 - **Shim tiles (row 0):** Interface with the host for all DMA data movement. Only the shim tiles within the selected column range are activated.
 - **Memory tiles (row 1):** Stage and redistribute data between the host-facing shim tiles and the compute cores. They also perform the data layout transformation from row-major to vector-intrinsic format.
