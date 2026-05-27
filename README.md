@@ -78,7 +78,7 @@ if pyxrt is not found ensure the python folder being used is from the virtual ir
  >>export PATH=~/mlir-aie/ironenv/lib/python3.12/site-packages/llvm-aie/bin:~/mlir-aie/ironenv/bin:$PATH
  >>which python
    /home/aba/mlir-aie/ironenv/bin/python
->> which aie-opt
+ >> which aie-opt
 ```
 
 > Make sure you are in the `render` group to access the NPU:
