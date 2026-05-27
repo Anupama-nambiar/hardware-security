@@ -9,7 +9,8 @@
 //===----------------------------------------------------------------------===//-->
 
 **NOTE** 
-This design is derived from the [Matrix Multiplication - Whole Array](https://github.com/Xilinx/mlir-aie/tree/main/programming_examples/basic/matrix_multiplication/whole_array) example in the [mlir-aie](https://github.com/Xilinx/mlir-aie) repository, 
+This design is derived from the [Matrix Multiplication - Whole Array](https://github.com/Xilinx/mlir-aie/tree/main/programming_examples/basic/matrix_multiplication/whole_array) example in the [mlir-aie](https://github.com/Xilinx/mlir-aie) repository 
+
 © Advanced Micro Devices, Inc., licensed under Apache 2.0 with LLVM Exceptions.
 
 
