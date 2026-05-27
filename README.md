@@ -84,7 +84,7 @@ xrt-smi examine
 ```
 If xrt-smi command is not found :
 ```bash
- command not found 
+ xrt-smi: command not found
 ```
 Fix the path to be able to use this command : 
 ```bash
