@@ -20,7 +20,7 @@ NPU 4×4 AI Engine Array
 │    Program 0      │     Program 1     │
 │   (shim 0–1)      │   (shim 2–3)      │
 │   (mem  0–1)      │   (mem  2–3)      │
-│   (cores 0–1 ×4)  │   (cores 2–3 ×4)  │
+│   (cores x8)      │   (cores x8)      │
 └──────────────────────────-----------──┘
 ```
 
@@ -113,9 +113,10 @@ B_combined  =  [ B0  (K*N elements) | B1  (K*N elements) ]
 C_combined  =  [ C0  (M*N elements) | C1  (M*N elements) ]
 ```
 
-This is necessary because `aiecc.py` (the AIE compiler driver) can silently merge buffer objects that share the same element type and total size into the same hardware buffer object slot. If Program 0 and Program 1 each declared separate same-sized buffers, the compiler might assign them the same slot, causing DMA transfers for both programs to read from and write to the same memory — resulting in a deadlock or corrupted output. By packing both programs' data into a single larger buffer, the total sizes differ from any individual program's buffer and this merging cannot occur.
+This is necessary because the NPU shim DMA hardware supports a maximum of 16 buffer descriptors (BDs) per channel, which the ping/pong transfer scheme splits into two groups of 8 (BD IDs 0–7 per phase). With 6 separate buffers (A0, B0, C0, A1, B1, C1), the runtime sequence would attempt to assign BD IDs beyond index 7 within a single ping/pong phase, exceeding this hardware limit. This produces a hard crash at runtime. 
 
-Each program accesses its slice via an offset computed at sequence time:
+By consolidating to 3 combined buffers, the number of BD assignments per phase stays within the hardware limit of 8. Each program accesses its slice via an offset computed at sequence time, with no additional BD cost.
+
 ```python
 A_offsets = [0,        A0_elems]   # Program 0 starts at 0, Program 1 after A0
 B_offsets = [0,        B0_elems]
@@ -253,12 +254,4 @@ Both programs receive the same input type in each test run. Results for each pro
 | `--b-col-maj`  | 0       | Use column-major layout for `B` (0 = row-major)           |
 | `--c-col-maj`  | 0       | Use column-major layout for `C` output (0 = row-major)    |
 
-Both programs always use `COLS_PER_PROG = 2` columns and `N_AIE_ROWS = 4` rows, consuming the full 4×4 NPU array.
-
-Total combined buffer sizes passed to the runtime sequence:
-
-```
-A_combined:  2 × M × K  elements  (dtype_in)
-B_combined:  2 × K × N  elements  (dtype_in)
-C_combined:  2 × M × N  elements  (dtype_out)
-```
+Both programs always use `COLS_PER_PROG = 2` columns and `N_AIE_ROWS = 4` rows, consuming the full 4×4 NPU array. Program A uses columns 0-1 and Program B uses columns 2-3
