@@ -8,7 +8,7 @@
 //
 //===----------------------------------------------------------------------===//-->
 
-# Matrix Multiplication - Configurable Column Design
+# Matrix Multiplication - Controlled Single Program Execution
 
 This directory contains a matrix multiplication design for a Ryzen AI device with an NPU (Neural Processing Unit). Unlike the whole-array design, this variant allows precise control over **which columns of AI Engines (AIEs) are used** via a configurable column offset and column count. This makes it suitable for partitioned workloads, resource isolation experiments, and performance benchmarking across different AIE column configurations.
 
