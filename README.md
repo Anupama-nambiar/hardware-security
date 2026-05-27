@@ -1,9 +1,9 @@
 
 
-This project consists of matrix multiplication files to be run individially and concurrently on AMD's NPU. The current setup is utilizing 16 tiles. It follows the same setup pattern as the original AMD MLIR-AIE setup which can be found [here](https://github.com/Xilinx/mlir-aie.git). But there are a few additional debugging steps in this ReadMe.
+This project consists of matrix multiplication files to be run individially and concurrently on AMD's NPU. The current setup is utilizing 16 tiles. It follows the same setup pattern as the original AMD MLIR-AIE setup which can be found [here](https://github.com/Xilinx/mlir-aie.git). But there are a few additional debugging steps in this ReadME.
 
 
-# Getting Started for AMD Ryzen™ AI on Linux
+# Getting Started for AMD Ryzen™ AI on Linux 
 
 These instructions will guide you through everything required for building and executing a program on the Ryzen™ AI NPU, starting from a fresh bare-bones **Ubuntu 24.04** or **Ubuntu 24.10** install.
 
