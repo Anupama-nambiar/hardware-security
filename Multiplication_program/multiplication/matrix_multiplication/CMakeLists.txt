@@ -14,9 +14,10 @@ cmake_minimum_required(VERSION 3.30)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
+find_program(WSL NAMES powershell.exe)
 include(../../common.cmake)
 
-find_program(WSL NAMES powershell.exe)
+
 
 if (NOT WSL)
     if(NOT DEFINED CMAKE_C_COMPILER)
